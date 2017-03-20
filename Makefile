@@ -4,6 +4,7 @@ CFLAGS  := -Wall -DVERSION=\"$(VERSION)\" -g -I include
 LIBS    := 
 INCLUDE := /usr/include/kmediascanner
 DESTDIR := /usr
+MANDIR  := $(DESTDIR)/share/man
 TARGET	:= kobo 
 SOURCES := $(shell find src/ -type f -name *.c)
 OBJECTS := $(patsubst src/%,build/%,$(SOURCES:.c=.o))
@@ -23,7 +24,8 @@ clean:
 	$(RM) -r build/ $(TARGET)
 
 install: $(TARGET)
-	cp -p $(TARGET) ${DESTDIR}${PREFIX}/bin/
+	cp -p $(TARGET) ${DESTDIR}/bin/
+	cp -p man1/* ${MANDIR}/man1/
 
 -include $(DEPS)
 

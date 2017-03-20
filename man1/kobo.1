@@ -1,0 +1,132 @@
+.\" Copyright (C) 2017 Kevin Boone 
+.\" Permission is granted to any individual or institution to use, copy, or
+.\" redistribute this software so long as all of the original files are
+.\" included, that it is not sold for profit, and that this copyright notice
+.\" is retained.
+.\"
+.TH kobo 1 "March 2017"
+.SH NAME
+kobo \- a command-line utility for Kobo e-readers 
+.SH SYNOPSIS
+.B kobo
+.RB [options]
+.PP
+
+.SH DESCRIPTION
+\fIkobo\fR is simple Linux command-line utility for managing books, particularly
+in EPUB and MOBI format, on Kobo e-readers. It is intended to be slightly
+more convenient than simply copying and deleting files using Linux
+shell commands. 
+
+.SH EXAMPLE
+
+.BI kobo\ -i\ my_book.epub
+
+Install "my_book.epub" in the e-reader's storage, using the author name
+as a subdirectory. The storage will be mounted if it is not already mounted,
+and unmounted afterwards.
+
+.SH "OPTIONS"
+.TP
+.BI -a,\-\-author
+Specify a author, in cases where this can't be found in the book
+meta-data. The author name is used only as the name of a subdirectory
+in the e-reader's storage, and has no other significance. For organizational
+purposes, it may be helpful to keep books by a particular author in
+the same subdirectory. The choice of name won't affect the e-reader's
+operation in any way
+.LP
+.TP
+.BI -d,\-\-dir\ {directory} 
+Specify the directory where the Kobo device is mounted, if this cannot
+be determined automatically. By default, the utility will attempt to
+mount the Kobo as a USB device in its default location. Specifying
+a directory will override this behaviour
+.LP
+.TP
+.BI -i,\-\-install\ {file}
+Copy a file onto the Kobo device
+.LP
+.TP
+.BI -i,\-\-list
+List books on the Kobo device. Each item is shown with an number, which 
+can be used as an argument to \-\-remove to delete it
+.LP
+.TP
+.BI \-\-loglevel\ N
+Sets the log verbosity, from 0 (the default) to 3. At the lowest level,
+only fatal errors are displayed
+.LP
+.TP
+.BI -n, \-\-nometa
+When listing the contents of the Kobo's storage, show only filenames; do
+not attempt to read meta-data from the files (which can be slow)
+.LP
+.TP
+.BI -r, \-\-remove\ N
+Remove the book with number N. Numbers start at zero. This operation cannot
+be reversed 
+.LP
+.TP
+.BI -v,\-\-version
+Display version and copyright infomation
+.LP
+
+.SH NOTES
+
+.SS Mounting the Kobo 
+
+The Kobo devices is assumed to be connected using a USB cable, and will be
+mounted as a mass storage device. On modern Linux systems, removable
+devices are auto-mounted in standard locations; 
+\fIkobo\fR
+will use the 
+\fIudisksctl\fR
+utility to mount the device if it is not mounted, and will unmount it
+afterwards so it can be safely removed. If your system does not support
+this kind of auto-mounting, the --dir switch can be used to specify
+the mount point.
+
+.SS Cablibre compatibility
+
+\fIkobo\fR
+will try to maintain an author/title directory structure on the Kobo, as
+Calibre uses. However, Calibre does not scan the actual device storage
+for books, but reads a meta-data database maintained by the device. This
+database is updated when the device is unmounted from the computer. 
+Consequently, 
+\fIkobo\fR
+should work alongside Calibre, but these two utilities should not be used
+at the same time, without giving the Kobo an opportunity to update 
+its database.
+
+.SS File formats
+
+\fIkobo\fR will copy any e-book file that the Kobo supports onto the
+device. However, it can only process meta-data in EPUB and MOBI files.
+On other cases, it may be necessary to use the --author switch to
+tell the utility which author directory to copy the file into.
+
+
+.SH BUGS AND LIMITATIONS
+
+It is probably possible for badly-formatted MOBO files crash the
+utility. 
+
+
+.SH AUTHOR AND LEGAL
+\fIkobo\fR
+is maintained by Kevin Boone, and is open source under the
+terms of the GNU Public Licence, version 3.0. It contains contributions
+from a number of other authors, whose details may be found in 
+the source code.
+There is no warranty
+of any kind.
+
+
+.SH FURTHER INFORMATION 
+For more details, see 
+http://kevinboone.net/README_kobo.html.
+
+
+.\" end of file
