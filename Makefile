@@ -2,7 +2,7 @@ VERSION := 0.0.1
 CC      := gcc
 CFLAGS  := -Wall -DVERSION=\"$(VERSION)\" -g -I include
 LIBS    := 
-INCLUDE := /usr/include/kmediascanner
+INCLUDE := 
 DESTDIR := /usr
 MANDIR  := $(DESTDIR)/share/man
 TARGET	:= kobo 

@@ -12,7 +12,7 @@ Copyright (c)2017 Kevin Boone, GPL v3.0
 #include <stdlib.h>
 #include <string.h>
 #include <stdarg.h>
-#include <kmediascanner/kmsconstants.h>
+#include "kmsconstants.h"
 #include "kmslogging.h"
 
 

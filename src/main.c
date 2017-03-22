@@ -444,6 +444,7 @@ int main (int argc, char **argv)
   if (author) free (author);
   if (kobo_dir) free (kobo_dir);
   if (sremove) free (sremove);
+  return 0;
   }
 
 
