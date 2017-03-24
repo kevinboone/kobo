@@ -12,7 +12,6 @@ Copyright (c)2017 Kevin Boone, GPL v3.0
 #include <stdlib.h>
 #include <string.h>
 #include <stdarg.h>
-#include "kmsconstants.h"
 #include "kmslogging.h"
 
 
@@ -45,18 +44,6 @@ void kmslogging_set_log_console (const BOOL f)
   }
 
 /*==========================================================================
-level_to_text
-*==========================================================================*/
-static const char *level_to_text (const int level)
-  {
-  const char *ret = "ERROR";
-  if (level == DEBUG) ret = "DEBUG";
-  else if (level == WARNING) ret = "WARNING";
-  else if (level == INFO) ret = "INFO";
-  return ret;
-  }
-
-/*==========================================================================
 log_vprintf
 *==========================================================================*/
 void kmslog_vprintf (const int level, const char *fmt, va_list ap)
@@ -66,7 +53,7 @@ void kmslog_vprintf (const int level, const char *fmt, va_list ap)
     if (level > log_level) return;
     char *str = NULL;
     vasprintf (&str, fmt, ap);
-    printf ("%s %s\n", level_to_text (level), str);
+    printf ("%d %s\n", level, str);
     free (str);
     }
   }

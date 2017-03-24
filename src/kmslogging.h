@@ -11,7 +11,7 @@ Copyright (c)2017 Kevin Boone, GPLv3.0
 #define INFO 2
 #define DEBUG 3
 
-#include "kmsconstants.h"
+#include <ebookinfo/ebookinfo.h>
 
 void kmslog_error (const char *fmt,...);
 void kmslog_warning (const char *fmt,...);

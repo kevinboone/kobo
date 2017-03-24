@@ -1,7 +1,7 @@
 VERSION := 0.0.1
 CC      := gcc
 CFLAGS  := -Wall -DVERSION=\"$(VERSION)\" -g -I include
-LIBS    := 
+LIBS    := -lebookinfo -lpcre
 INCLUDE := 
 DESTDIR := /usr
 MANDIR  := $(DESTDIR)/share/man

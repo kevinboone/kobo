@@ -3,9 +3,8 @@
 #include <stdlib.h>
 #include <malloc.h>
 #include <string.h>
-#include "kmsconstants.h" 
-#include "epub.h" 
-#include "kobo.h" 
+#include <ebookinfo/ebookinfo.h>
+#include "kmslogging.h"  
 
 /*==========================================================================
  Find the device (e.g., /dev/sdb) which represents the Kobo. If no Kobo

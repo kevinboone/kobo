@@ -7,11 +7,9 @@
 #include <dirent.h>
 #include <getopt.h>
 #include <sys/stat.h>
-#include "kmsconstants.h" 
-#include "epub.h" 
-#include "mobi.h" 
-#include "kobo.h" 
-#include "kmslogging.h" 
+#include <ebookinfo/ebookinfo.h>
+#include "kmslogging.h"
+#include "kobo.h"
 
 #define FLAG_SHOW_METADATA 0x0001
 
@@ -84,15 +82,28 @@ char *get_book_author (const char *path)
   {
   char *ret = NULL; 
 
-  char *p = strrchr (path, '.');
-  if (p)
+  char *error = NULL;
+  EBook *ebook = ebook_open (path, &error);
+  if (ebook)
     {
-    char *ext = p+1;
-    if (strcasecmp (ext, "epub") == 0)
-        ret = epub_get_author (path);
-    else if (strcasecmp (ext, "mobi") == 0)
-        ret = mobi_get_author (path);
-     }
+    EBookMetadata *metadata = ebook_get_metadata (ebook, &error); 
+    if (metadata)
+      {
+      const char *author = ebookmetadata_get_author (metadata);
+      if (author) ret = strdup (author);
+      ebookmetadata_destroy (metadata);
+      }
+    else
+      {
+      free (error);
+      }
+    ebook_close (ebook);
+    }
+  else
+    {
+    kmslog_error (error);
+    free (error);
+    }
 
   return ret;
   }
@@ -107,18 +118,37 @@ char *get_book_summary (const char *mount, const char *path, int flags)
 
   if (flags & FLAG_SHOW_METADATA)
     {
-    char fullpath[1000];
-    snprintf (fullpath, sizeof (fullpath) - 1, "%s%s", mount, path);
+    char *fullpath;
+    asprintf (&fullpath, "%s%s", mount, path);
 
-    char *p = strrchr (fullpath, '.');
-    if (p)
+    char *error = NULL;
+    EBook *ebook = ebook_open (fullpath, &error);
+    if (ebook)
       {
-      char *ext = p+1;
-      if (strcasecmp (ext, "epub") == 0)
-        ret = epub_get_book_summary_line (fullpath);
-      else if (strcasecmp (ext, "mobi") == 0)
-        ret = mobi_get_book_summary_line (fullpath);
+      EBookMetadata *metadata = ebook_get_metadata (ebook, &error); 
+      if (metadata)
+        {
+        const char *author = ebookmetadata_get_author (metadata);
+        const char *title = ebookmetadata_get_title (metadata);
+       
+        if (author && title)
+          asprintf (&ret, "%s/%s", author, title);
+  
+        ebookmetadata_destroy (metadata);
+        }
+      else
+        {
+        free (error);
+        }
+      ebook_close (ebook);
       }
+    else
+      {
+      kmslog_error (error);
+      free (error);
+      }
+     
+    free (fullpath);
     }
 
   if (ret == NULL)
