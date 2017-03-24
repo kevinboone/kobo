@@ -88,12 +88,15 @@ metadata; not so in other cases. If the author is unknown, use the
 <code>--author</code> switch to provide one. Note that this switch does
 nothing more than create a particular subdirectory on the e-reader's
 storage; so far as Kobo is concerned, you can just use <code>--author /</code>
-to put files in the top-level directory. This doesn't make later management
-straightforward, however. 
+to put files in the top-level directory. This is a bit untidy, 
+ however. 
 
 
 <h2>Calibre issues</h2>
 
+<code>kobo</code> does not interact with Calibre, or with any files that
+Calibre creates. But it tries not to interfere with Calibre.
+<p/>
 It should go without saying that the <code>kobo</code> utility can't
 send information to the Kobo device that is known only to Calibre. 
 Calibre maintains a separate database of meta-data (author, series, genre)
@@ -126,23 +129,33 @@ copying to the device.
 
 <h2>Notes</h2>
 
-<ul>
-<li><code>kobo</code> will not examine directories on the Kobo device whose names begin with "." -- this is the convention for a hidden directory. Thus
+<code>kobo</code> will not examine directories on the Kobo device whose names begin with "." -- this is the convention for a hidden directory. Thus
 it will not allow the user to delete the Kobo user guide, either accidentally
-or on purpose</li>
-<li>No attempt is made to edit the stored meta-data on the Kobo device. 
+or on purpose
+<p/>
+No attempt is made to edit the stored meta-data on the Kobo device. 
 The device will re-scan the files when it is disconnected. </li>
-<li>It's possible, in principle, for a badly-formatted EPUB or MOBI file
-to crash the program</li>
-<li>The default behaviour of <code>kobo</code>, if the reader is not
+<p/>
+It's possible, in principle, for a badly-formatted EPUB or MOBI file
+to crash the program
+<p/>
+The default behaviour of <code>kobo</code>, if the reader is not
 mounted, is to mount it, do whatever is specified, then unmount it.
 This can be a bit tiresome in a system where mounting requires 
 authentication. In such cases, bear in mind that <code>kobo</code> won't
 unmount the e-reader if it finds it mounted; so it might be more convenient
 to mount it using the operating system or desktop first. Bear in mind,
-however, that Kobo devices are rather susceptible to being unplugged
-whilst still mounted</li>
-</ul>
+however, that Kobo devices are rather susceptible to misbehaving 
+if they are unplugged
+whilst still mounted
+
+<h2>Bugs and limitations</h2>
+
+When examining the list of mounted USB devices, <code>kobo</code> assumes
+that the first mount it encountered with the device name that contains
+the string "kobo" (regardless of letter case) is the one to use.
+There is thus no obvious way to support multiple Kobo devices, apart from
+the crudely obvious one.
 
 <h2>Legal, etc</h2>
 
