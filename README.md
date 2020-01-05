@@ -1,8 +1,20 @@
-<a href="articles.html">&bull; Articles</a><a href="computing_articles.html">&bull; Articles about computing</a><a href="utility_corner.html">&bull; Utility corner</a><p/>
-
 <h1>kobo</h1>
 
 Version 0.0.1, March 2017
+
+<table align="center" width="30%" border="1" cellpadding="5">
+<tr>
+<td>
+Please note that this utility does not yet work properly with the 
+Kobo Forma -- the name of the mounted volume is subtly different to 
+that in older devices. Adding support for the Forma is on my to-do list,
+but it's a very long list, and it's not yet even in the top half. 
+I might promote it to a more prominent position if there is any obvious
+demand, so feel free to get in touch.
+</td>
+</tr>
+</table>
+
 
 <h2>What is this?</h2>
 
@@ -166,13 +178,4 @@ you accept the risks involved in doing so. <code>kobo</code> contains
 contributions from a number of other authors, whose details may be
 found in the source code.
 <p/>
-
-<h2>Downloads</h2>
-
-The most up-to-date source will always be found by checking out
-the 
-<a href="http://github.com/kevinboone/kobo">github repository</a>. 
-Alternatively, download the
-<a href="kobo.tar.gz">source code bundle</a>.
-
 
