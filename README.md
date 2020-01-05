@@ -83,12 +83,12 @@ utility, for unpacking EPUB archives.
 <p/>
 Most importantly, <code>kobo</code> depends on the <code>libebookinfo</code>
 library, by the same author. To build <code>kobo</code>, you'll need to 
-build and install <a href="/kevinboone/ebookinfo">ebookinfo</a> first.
+build and install <a href="http://github.com/kevinboone/ebookinfo">ebookinfo</a> first.
 
 <h2>Building</h2>
 
 Ensure that 
-<a href="/kevinboone/ebookinfo">ebookinfo</a> is built and installed.
+<a href="http://github.com/kevinboone/ebookinfo">ebookinfo</a> is built and installed.
 Then proceed as usual:
 
 <pre class="codeblock">
